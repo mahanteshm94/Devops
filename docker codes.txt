@@ -1,0 +1,175 @@
+---------------Docker Engine Installation codes--------------------
+sudo yum update -y
+sudo yum search docker
+sudo yum info docker
+sudo yum install -y docker
+sudo systemctl enable docker.service
+sudo systemctl start docker.service
+sudo systemctl status docker.service
+docker version
+sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose version
+
+su filemane.sh---------------------is used to install the docker
+
+--------------Docker codes to do operations in linux connect---------------------------
+docker images
+docker ps
+docker pull imagename or container id
+docker run -it -d imagename or container id --------------it is used to convert the image into container
+docker stop imagename or container id
+docker ps
+docker ps -a
+docker start imagename or container id
+docker ps -a
+
+
+
+
+
+
+first create an instance
+connect that instance with mobextreme
+in dockerhub create a new repository
+in mobextereme install the docker
+pull an image------docker pull image_name
+convrt it into a container--------docker run -it -d image_name
+commit the image by using---- docker commit containerid repository_name
+push the image into the repository using----- docker push repository_name
+to login to the dockerhub using instance use docker login 
+check the dockerhub we will get the pulled image from the docker
+
+
+
+
+---------------------to pull webserver--------
+docker pull nginx
+docker images
+docker run -it -d -p 8000:80 nginx
+docker ps
+go to instance copy the ipv4 address and paste it with :8000
+we will get the welcome page of nginx
+
+
+------------to pull apachetomcat-------
+docker pull amazonlinux
+docker images
+docker run -it -d container_name
+docker ps
+docker exec -it container_id bash -------------------------to go inside the container
+yum install wget tar gzip java -y------------------download wget tar,gzip and zipc -y 
+wget---------(paste the tomcat url )
+ls
+tar -zvxf tared_file above showed and paste it.
+ls
+copy the untar file 
+cd paste untar link
+ls 
+cd bin
+ls
+./startup.sh
+
+
+
+
+
+
+mkdir Dockerfile
+cd Dockerfile
+vi dockerfile ----i----inset the commands
+[FROM amazonlinux
+    MAINTAINER <Enter Docker hub mail_id>
+    RUN yum update -y
+    RUN yum install -y wget
+    RUN yum install -y tar
+    RUN yum install -y gzip
+    RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.73.tar.gz
+    RUN tar -xf apache-tomcat-9.0.73.tar.gz
+    RUN yum install -y java
+    RUN sh apache-tomcat-9.0.73/bin/startup.sh]
+press esc :wq
+cd..
+go for dockerhub and create a new repository
+docker build -t name Dockerfile
+docker images
+docker run -it -d names
+docker ps
+docker exec -it container_id bash
+ls
+cd untared_file
+ls
+cd bin
+ls
+./startup.sh
+
+
+
+
+
+
+------------Docker Compose-----------
+Multiple containers working in a single sevice
+
+vi docker-compose.yml
+insert the codes inside the file
+[version : '3'
+services:
+  web:
+    image: nginx
+    ports:
+      -  4000:80
+  
+  db:
+    image: redis]
+esc button +:wq
+cat docker-compose.yml
+docker-compose up -d
+docker ps
+docker-compose down
+docker ps
+
+
+
+-------------Docker volume---------------------
+there are 2 types of volumes they are
+a)named volume
+    
+docker pull httpd
+docker images
+docker run -it -d httpd
+docker ps
+docker exec -it container_id bash
+ls
+cd htdocs
+ls
+cat index.html
+cd
+exit
+docker volume create <volume_name>
+docker volume ls
+docker images
+docker run -itd -v <volume_name>:/usr/local/apache2/htdocs/ -p 6000:80 httpd
+docker ps
+docker exce -it container_id bash
+ls
+cd htdocs
+ls
+make duplicate the window
+sudo su -
+cd /var/lib/docker/volumes
+ls
+cd <volume_name>
+ls
+cd _data
+ls
+in main window type
+touch sample.txt
+ls
+again in duplicate window 
+ls
+we will get the newly created file
+
+
+
+
